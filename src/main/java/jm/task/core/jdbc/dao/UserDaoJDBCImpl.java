@@ -22,7 +22,11 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void createUsersTable() {
         //нужна ли проверка по метаданным через .getTables(), существует ли таблица?
-        sql = "CREATE TABLE `pre_project`.`users` (`id` INT NOT NULL AUTO_INCREMENT,`name` VARCHAR(45) NOT NULL,`lastName` VARCHAR(45) NOT NULL,`age` TINYINT NOT NULL, PRIMARY KEY (`id`));";
+        sql = "CREATE TABLE `pre_project`.`users`"
+                + "(`id` INT NOT NULL AUTO_INCREMENT,"
+                + "`name` VARCHAR(45) NOT NULL,"
+                + "`lastName` VARCHAR(45) NOT NULL,"
+                + "`age` TINYINT NOT NULL, PRIMARY KEY (`id`));";
         try {
             statement = connection.prepareStatement(sql);
             statement.execute();

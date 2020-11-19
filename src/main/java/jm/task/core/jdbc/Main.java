@@ -3,8 +3,6 @@ package jm.task.core.jdbc;
 import jm.task.core.jdbc.service.UserService;
 import jm.task.core.jdbc.service.UserServiceImpl;
 
-import java.util.Collection;
-import java.util.Collections;
 
 /**
  * А нужно ли использовать
