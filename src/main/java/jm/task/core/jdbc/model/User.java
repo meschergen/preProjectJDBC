@@ -1,34 +1,43 @@
 package jm.task.core.jdbc.model;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-@Table
+@Entity
+@Table(name = "users")
 public class User {
     @Id
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @Column
+    @Column(name = "name")
     private String name;
 
-    @Column
+    @Column(name = "last_name")
     private String lastName;
 
-    @Column
+    @Column(name = "age")
     private Byte age;
 
     public User() {
 
     }
 
-    public User(Long id, String name, String lastName, Byte age) {
-        this.id = id;
+    // тк значение id автоматически наращивается в БД, или переделать?
+    public User(String name, String lastName, Byte age) {
         this.name = name;
         this.lastName = lastName;
         this.age = age;
     }
 
+    public User(Long id, String name, String lastName, Byte age) {
+        this(name, lastName, age);
+        this.id = id;
+    }
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
@@ -37,6 +46,7 @@ public class User {
         this.id = id;
     }
 
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -45,6 +55,7 @@ public class User {
         this.name = name;
     }
 
+    @Column(name = "last_name")
     public String getLastName() {
         return lastName;
     }
@@ -53,6 +64,7 @@ public class User {
         this.lastName = lastName;
     }
 
+    @Column(name = "age")
     public Byte getAge() {
         return age;
     }
@@ -61,6 +73,7 @@ public class User {
         this.age = age;
     }
 
+    @Override
     public String toString() {
         return "\nПользователь № "  + id
                     + "\nИмя: "     + name

@@ -23,9 +23,9 @@ public class UserDaoJDBCImpl implements UserDao {
     public void createUsersTable() {
         //нужна ли проверка по метаданным через .getTables(), существует ли таблица?
         sql = "CREATE TABLE `pre_project`.`users`"
-                + "(`id` INT NOT NULL AUTO_INCREMENT,"
+                + "(`id` BIGINT NOT NULL AUTO_INCREMENT,"
                 + "`name` VARCHAR(45) NOT NULL,"
-                + "`lastName` VARCHAR(45) NOT NULL,"
+                + "`last_name` VARCHAR(45) NOT NULL,"
                 + "`age` TINYINT NOT NULL, PRIMARY KEY (`id`));";
         try {
             statement = connection.prepareStatement(sql);
@@ -34,7 +34,6 @@ public class UserDaoJDBCImpl implements UserDao {
 
         } catch (SQLException sqe) {
             System.out.println("\nНе удалось создать таблицу! " + sqe.getMessage());
-                                                                //или просто оставить пустым?
         }                                                       // или логировать?
     }
 
@@ -50,7 +49,7 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void saveUser(String name, String lastName, byte age) {
-        sql = "INSERT INTO `pre_project`.`users` (name, lastName, age) VALUES (?, ?, ?);";
+        sql = "INSERT INTO `pre_project`.`users` (name, last_name, age) VALUES (?, ?, ?);";
         try {
             statement = connection.prepareStatement(sql);
             statement.setString(1, name);
@@ -68,6 +67,9 @@ public class UserDaoJDBCImpl implements UserDao {
         try {
             statement = connection.prepareStatement(sql);
             statement.execute();
+
+            System.out.println("\nПользователь с id" + id + " успешно удалён!");
+
         } catch (SQLException sqe) {
             System.out.println("\nНе удалось удалить пользователя с id" + id + " " + sqe.getMessage());
         }
@@ -100,7 +102,9 @@ public class UserDaoJDBCImpl implements UserDao {
         try {
             statement = connection.prepareStatement(sql);
             statement.execute();
+
             System.out.println("\nТаблица очищена успешно!");
+
         } catch (SQLException sqe) {
             System.out.println("\nНе удалось очистить таблицу! " + sqe.getMessage());
         }

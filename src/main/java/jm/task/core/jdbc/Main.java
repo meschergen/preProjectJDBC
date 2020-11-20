@@ -10,6 +10,7 @@ import jm.task.core.jdbc.service.UserServiceImpl;
  * @return: такого типа
  *   с анотациями
  */
+
 public class Main {
     public static void main(String[] args) {
         UserService us = new UserServiceImpl();
