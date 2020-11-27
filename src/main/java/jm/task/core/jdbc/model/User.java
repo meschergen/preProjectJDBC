@@ -20,7 +20,6 @@ public class User {
     private Byte age;
 
     public User() {
-
     }
 
     // тк значение id автоматически наращивается в БД, или переделать?

@@ -12,8 +12,8 @@ import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
     private final Connection connection;
-    private PreparedStatement statement;
-    private String sql;
+    private PreparedStatement statement; // TODO: закрывать его каждый раз
+    private String sql; // TODO: убрать
 
 
     public UserDaoJDBCImpl() {
@@ -21,20 +21,19 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void createUsersTable() {
-        //нужна ли проверка по метаданным через .getTables(), существует ли таблица?
-        sql = "CREATE TABLE `pre_project`.`users`"
-                + "(`id` BIGINT NOT NULL AUTO_INCREMENT,"
-                + "`name` VARCHAR(45) NOT NULL,"
-                + "`last_name` VARCHAR(45) NOT NULL,"
-                + "`age` TINYINT NOT NULL, PRIMARY KEY (`id`));";
+        //нужна ли проверка по метаданным через .getTables(), существует ли таблица? неоязат
         try {
-            statement = connection.prepareStatement(sql);
+            statement = connection.prepareStatement("CREATE TABLE `pre_project`.`users`"
+                    + "(`id` BIGINT NOT NULL AUTO_INCREMENT,"
+                    + "`name` VARCHAR(45) NOT NULL,"
+                    + "`last_name` VARCHAR(45) NOT NULL,"
+                    + "`age` TINYINT NOT NULL, PRIMARY KEY (`id`));");
             statement.execute();
             System.out.println("\nТаблица создана успешно!"); // сообщения в этом классе, или в UserServiceImpl?
 
         } catch (SQLException sqe) {
             System.out.println("\nНе удалось создать таблицу! " + sqe.getMessage());
-        }                                                       // или логировать?
+        }                                                       // TODO: логировать
     }
 
     public void dropUsersTable() {
@@ -63,9 +62,10 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void removeUserById(long id) {
-        sql = "DROP TABLE `pre_project`.`users`;";
+        sql = "DELETE FROM `pre_project`.`users` WHERE `users`.`id`= ?;";
         try {
             statement = connection.prepareStatement(sql);
+            statement.setLong(1, id);
             statement.execute();
 
             System.out.println("\nПользователь с id" + id + " успешно удалён!");

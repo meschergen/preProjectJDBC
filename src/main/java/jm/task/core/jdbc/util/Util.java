@@ -54,8 +54,8 @@ public class Util {
                     entry("hibernate.connection.username", DB_USER),
                     entry("hibernate.connection.password", DB_USER_PASSWORD),
                     entry("hibernate.connection.show_sql", true),
-                    entry("hibernate.connection.format_sql", true)
-                    //entry("hibernate.hbm2ddl.auto", "create") // update? / create-drop /drop-and-create /
+                    entry("hibernate.connection.format_sql", true),
+                    entry("hibernate.hbm2ddl.auto", "update")
             );
 
             rb.applySettings(settings);
@@ -78,9 +78,4 @@ public class Util {
         return sessionFactory;
     }
 
-    /*public static void shutdown() {
-        if (serviceRegistry != null) {
-            StandardServiceRegistryBuilder.destroy(serviceRegistry);
-        }
-    }*/
 }
